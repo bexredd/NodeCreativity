@@ -1,0 +1,51 @@
+<html>
+  <head>
+
+  <title>Nasa Images</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+  </head>
+  <body>
+
+   <h1>Image Search</h1>
+    <form>
+      Search Here: <input type="text" id="searchImg" value=""><br>
+      Definition: <span id="imageField">Empty</span>
+    </form>
+
+    <script>
+    $("#searchImg").keyup(function(){
+      console.log("called the image func");
+      const url = window.location.href +$("#searchImg").val()
+
+      const word = $("#searchImg").val();
+      const images = document.getElementById('imageField')
+
+      $.getJSON(url, (data) => {
+        if(data) {
+          console.log("getting data");
+            images.innerHTML = ''
+            const head = document.createElement('h1')
+            head.innerHTML = word
+            const list = document.createElement('ul')
+            var k = 0;
+            for(let i = 0; i < 2; i++) {
+                const listItem = document.createElement('li')
+                console.log("data")
+                console.log(data)
+                listItem.innerHTML = 
+                  `<div><li><img src=" ${data["collection"]["items"][k]["links"][0]["href"]}"></div>`
+                   k++
+                list.appendChild(listItem)
+            }
+            images.appendChild(head)
+            images.appendChild(list)
+        }
+        console.log(images);
+    })
+})    
+    </script>
+  </body>
+  </html>
