@@ -1,98 +1,52 @@
 <html>
   <head>
     <style>
-      body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
-body{
-	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-	background-color: #e7cece;
-        padding: 25px;
-	}
-ul{
-        list-style-type: square;
-    }
-
-p{
-	font-weight: bold;
-	font-size: large;
-}
-
-h1{
-        background-color: rgb(213, 228, 243);
-	
-  padding: 10px;
-  text-align: center;
-  width: fit-content;
-    }
-      </style>
-
-  <title>City Finder</title>
-
+    
+    
+    </style>
+  <title>Space Images</title>
+  <link rel="stylesheet" href="style.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   
   </head>
   <body>
-    <h1>Find a Utah City!</h1>
-  <form>
-  Enter A Utah City: <input type="text" id="cityfield" value=""><br>
-  Suggestion: <span id="txtHint">Empty</span>
-  </form>
-  <script>
-  $( "#cityfield" ).keyup(function() {
-    var url = "getcity?q="+$("#cityfield").val();
-    $.getJSON(url,function(data) {
-      var everything;
-      everything = "<ul>";
-      $.each(data, function(i,item) {
-        everything += "<li> "+data[i].city;
-      });
-      everything += "</ul>";
-      $("#txtHint").html(everything);
-    });
-  });
-  </script>
 
-   <h1>OwlBot</h1>
+   <h1>Image Search</h1>
     <form>
-      Search the dictionary: <input type="text" id="searchDef" value=""><br>
-      Definition: <span id="wordHint">Empty</span>
+      Search Here: <input type="text" id="searchImg" value=""><br>
+      Definition: <span id="imageField">Empty</span>
     </form>
 
     <script>
-    $("#searchDef").keyup(function(){
-      console.log("called the owl func");
-      const url = window.location.href +$("#searchDef").val()
+    $("#searchImg").keyup(function(){
+      console.log("called the image func");
+      const url = window.location.href +$("#searchImg").val()
 
-      const word = $("#searchDef").val();
-      const defs = document.getElementById('wordHint')
-
+      const word = $("#searchImg").val();
+      const images = document.getElementById('imageField')
 
       $.getJSON(url, (data) => {
         if(data) {
           console.log("getting data");
-            defs.innerHTML = ''
+            images.innerHTML = ''
             const head = document.createElement('h1')
             head.innerHTML = word
             const list = document.createElement('ul')
-            for(let i = 0; i < 2; i++) {
+            var k = 0;
+            for(let i = 0; i < 5; i++) {
                 const listItem = document.createElement('li')
-                listItem.innerHTML = `<h2>Type: ${data[i].type}</h2>
-                                        <div>Defenition: ${data[i].defenition}</div>
-                                        <div>Example: ${data[i].example}</div>`
+                console.log("data")
+                console.log(data)
+                listItem.innerHTML = 
+                  `<div><li><img src=" ${data["collection"]["items"][k]["links"][0]["href"]}" width ="500"></div>`
+                   k++
                 list.appendChild(listItem)
             }
-            defs.appendChild(head)
-            defs.appendChild(list)
+            images.appendChild(head)
+            images.appendChild(list)
         }
-        console.log(defs);
+        console.log(images);
     })
 })    
     </script>
