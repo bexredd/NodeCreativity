@@ -1,0 +1,41 @@
+<html>
+<head>
+<title> Nasa Image Search</title>
+<script>
+	$(document).ready(function(){
+		$('#SearchButton').click(function(e){
+		e.preventDefault();
+		var myurl = "http://18.221.49.28:3000/nasaImage?q="$("#inputText").val();
+		$.ajax({
+			url : myurl,
+   			dataType : "json",
+    			success : function(parsed_json) {
+			
+				Results ="<ul>";
+				$.each(parsed_json, function(i,definition) {
+		 			var info = parsed_json[i];
+  				});
+			Results += "</ul>";
+			console.log(Results);
+			$("#defResults").html(Results);
+			
+			}
+		});
+		});
+	});
+</script>
+</head>
+<body>
+
+<form class = forms>
+Enter a Word to Search: <input type = "text" id="inputText" value="">
+<input id ="SearchButton" type = "submit" value = "Search">
+</form>
+
+<div id="Results">
+<p> Results:</p>
+<div id="ImageResults"> No Results</div>
+</div>
+
+</body>
+</html>
