@@ -1,17 +1,24 @@
 <html>
 <head>
 <title> Nasa Image Search</title>
+<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous">
+</script>
 <script>
 	$(document).ready(function(){
 		$('#SearchButton').click(function(e){
 		e.preventDefault();
-		var myurl = "http://18.221.49.28:3000/nasaImage?q="$("#inputText").val();
+		console.log($("#inputText").val());
+		var myurl = "http://18.221.49.28:3000/nasaImage?q="+$("#inputText").val();
+		console.log(myurl);
 		$.ajax({
 			url : myurl,
    			dataType : "json",
     			success : function(parsed_json) {
-			
-				Results ="<ul>";
+				console.log(parse_json);			
+				var Results ="<ul>";
 				$.each(parsed_json, function(i,definition) {
 		 			var info = parsed_json[i];
   				});
